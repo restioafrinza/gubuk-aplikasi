@@ -22,10 +22,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
+        
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
